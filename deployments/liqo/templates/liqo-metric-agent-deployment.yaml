@@ -36,14 +36,14 @@ spec:
           securityContext:
             {{- include "liqo.containerSecurityContext" . | nindent 12 }}
           image: {{ .Values.metricAgent.initContainer.imageName }}{{ include "liqo.suffix" $metricConfig }}:{{ include "liqo.version" $metricConfig }}
-          {{- with .Values.metricAgent.initContainer.mounts.volumeMounts }}
+          #{{- with .Values.metricAgent.initContainer.mounts.volumeMounts }}
           volumeMounts:
             - mountPath: '/certs'
               name: certs    
             - mountPath: '/tmp'
               name: config-volume      
-            {{- . | toYaml | nindent 12 }}
-          {{- end }}
+            #{{- . | toYaml | nindent 12 }}
+          #{{- end }}
           command: [ "/usr/bin/openssl" ]
           args:
             - req
@@ -81,7 +81,7 @@ spec:
           volumeMounts:
             - mountPath: '/certs'
               name: certs
-      {{- with .Values.metricAgent.initContainer.mounts.volumes }}
+      #{{- with .Values.metricAgent.initContainer.mounts.volumes }}
       volumes:
         - name: certs
           emptyDir: {}
@@ -92,8 +92,8 @@ spec:
               path: liqo-cert-req.conf
             name: san-liqo-metric 
           name: config-volume
-        {{- . | toYaml | nindent 8}}
-      {{- end }}
+        #{{- . | toYaml | nindent 8}}
+      #{{- end }}
       {{- if ((.Values.common).nodeSelector) }}
       nodeSelector:
       {{- toYaml .Values.common.nodeSelector | nindent 8 }}
