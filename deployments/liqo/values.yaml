@@ -263,6 +263,17 @@ metricAgent:
   initContainer:
     # -- auth init container image repository
     imageName: "ghcr.io/liqotech/cert-creator"
+    # -- init container mounts
+    mounts: {}
+    #  volumes:
+    #    - name: data
+    #      emptyDir: {}
+    #  volumeMounts:
+    #    - mountPath: /data
+    #      name
+    #
+    # -- additional arguments for certificate creation
+    extraArgs: []
 
 telemetry:
   # -- Enable the telemetry collector

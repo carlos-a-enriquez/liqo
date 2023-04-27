@@ -39,6 +39,9 @@ spec:
           volumeMounts:
             - mountPath: '/certs'
               name: certs
+          {{- with .Values.metricAgent.initContainer.mounts.volumeMounts }}
+            {{- . | toYaml | nindent 12 }}
+          {{- end }}
           command: [ "/usr/bin/openssl" ]
           args:
             - req
@@ -54,6 +57,9 @@ spec:
             - /certs/key.pem
             - -out
             - /certs/cert.pem
+            {{- with .Values.metricAgent.initContainer.extraArgs }}
+            {{- . | toYaml | nindent 12 }}            
+            {{- end -}}
           resources: {{- toYaml .Values.metricAgent.pod.resources | nindent 12 }}
       containers:
         - image: {{ .Values.metricAgent.imageName }}{{ include "liqo.suffix" $metricConfig }}:{{ include "liqo.version" $metricConfig }}
@@ -69,9 +75,12 @@ spec:
           volumeMounts:
             - mountPath: '/certs'
               name: certs
+      {{- with .Values.metricAgent.initContainer.mounts.volumes }}
       volumes:
         - name: certs
           emptyDir: {}
+        {{- . | toYaml | nindent 8}}
+      {{- end }}
       {{- if ((.Values.common).nodeSelector) }}
       nodeSelector:
       {{- toYaml .Values.common.nodeSelector | nindent 8 }}
