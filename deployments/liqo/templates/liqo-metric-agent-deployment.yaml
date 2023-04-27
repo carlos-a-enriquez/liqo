@@ -41,7 +41,7 @@ spec:
             - mountPath: '/certs'
               name: certs          
             {{- . | toYaml | nindent 12 }}
-            {{- end }}
+          {{- end }}
           command: [ "/usr/bin/openssl" ]
           args:
             - req
