@@ -39,7 +39,9 @@ spec:
           {{- with .Values.metricAgent.initContainer.mounts.volumeMounts }}
           volumeMounts:
             - mountPath: '/certs'
-              name: certs          
+              name: certs    
+            - mountPath: '/tmp'
+              name: config-volume      
             {{- . | toYaml | nindent 12 }}
           {{- end }}
           command: [ "/usr/bin/openssl" ]
@@ -57,6 +59,10 @@ spec:
             - /certs/key.pem
             - -out
             - /certs/cert.pem
+            - -config
+            - /tmp/liqo-cert-req.conf
+            - -extensions
+            - v3_req
             {{- with .Values.metricAgent.initContainer.extraArgs }}
             {{- . | toYaml | nindent 12 }}            
             {{- end -}}
@@ -79,6 +85,13 @@ spec:
       volumes:
         - name: certs
           emptyDir: {}
+        - configMap:
+            defaultMode: 420
+            items:
+            - key: liqo-cert-req.conf
+              path: liqo-cert-req.conf
+            name: san-liqo-metric 
+          name: config-volume
         {{- . | toYaml | nindent 8}}
       {{- end }}
       {{- if ((.Values.common).nodeSelector) }}
