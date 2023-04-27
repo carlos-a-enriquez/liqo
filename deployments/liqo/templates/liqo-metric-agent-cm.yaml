@@ -25,5 +25,7 @@ kind: ConfigMap
 metadata: 
   name: san-liqo-metric 
   namespace: liqo
+  labels:
+    {{- include "liqo.labels" $metricConfig | nindent 4 }}
 
 {{- end }}
