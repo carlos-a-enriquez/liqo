@@ -42,7 +42,7 @@ spec:
               name: certs    
             - mountPath: '/tmp'
               name: config-volume      
-            #{{- . | toYaml | nindent 12 }}
+              #{{- . | toYaml | nindent 12 }}
           #{{- end }}
           command: [ "/usr/bin/openssl" ]
           args:
@@ -63,9 +63,9 @@ spec:
             - /tmp/liqo-cert-req.conf
             - -extensions
             - v3_req
-            #{{- with .Values.metricAgent.initContainer.extraArgs }}
-            #{{- . | toYaml | nindent 12 }}            
-            #{{- end -}}
+              #{{- with .Values.metricAgent.initContainer.extraArgs }}
+              #{{- . | toYaml | nindent 12 }}            
+              #{{- end -}}
           resources: {{- toYaml .Values.metricAgent.pod.resources | nindent 12 }}
       containers:
         - image: {{ .Values.metricAgent.imageName }}{{ include "liqo.suffix" $metricConfig }}:{{ include "liqo.version" $metricConfig }}
