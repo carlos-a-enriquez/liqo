@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   liqo:
   - apiVersion: v2
-    created: "2023-04-28T16:21:32.215868202+02:00"
+    created: "2023-04-28T16:34:56.762007987+02:00"
     description: A Helm chart for Liqo
     digest: ea91812a40ce742361cd65308989030fa0aaaadaed3bb4325d8c29eea9c960b1
     name: liqo
@@ -10,4 +10,4 @@ entries:
     urls:
     - https://github.com/liqotech/liqo/tree/master/deployments/liqo/liqo-0.1.tgz
     version: "0.1"
-generated: "2023-04-28T16:21:32.207611776+02:00"
+generated: "2023-04-28T16:34:56.753565411+02:00"
