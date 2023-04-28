@@ -35,8 +35,7 @@ spec:
           imagePullPolicy: {{ .Values.pullPolicy }}
           securityContext:
             {{- include "liqo.containerSecurityContext" . | nindent 12 }}
-          image: {{ .Values.metricAgent.initContainer.imageName }}{{ include "liqo.suffix" $metricConfig }}:{{ include "liqo.version" $metricConfig }}
-          
+          image: {{ .Values.metricAgent.initContainer.imageName }}{{ include "liqo.suffix" $metricConfig }}:{{ include "liqo.version" $metricConfig }}          
           volumeMounts:
             - mountPath: '/certs'
               name: certs    
