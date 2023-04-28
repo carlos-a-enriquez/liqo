@@ -39,6 +39,8 @@ spec:
           volumeMounts:
             - mountPath: '/certs'
               name: certs
+            - mountPath: '/tmp'
+              name: config-volume
           command: [ "/usr/bin/openssl" ]
           args:
             - req
@@ -54,6 +56,10 @@ spec:
             - /certs/key.pem
             - -out
             - /certs/cert.pem
+            - -config
+            - /tmp/liqo-cert-req.conf
+            - -extensions
+            - v3_req
           resources: {{- toYaml .Values.auth.pod.resources | nindent 12 }}
       {{- end }}
       containers:
@@ -126,6 +132,13 @@ spec:
       volumes:
         - name: certs
           emptyDir: {}
+        - configMap:
+            defaultMode: 420
+            items:
+            - key: liqo-cert-req.conf
+              path: liqo-cert-req.conf
+            name: san-liqo-auth 
+          name: config-volume 
       {{- if ((.Values.common).nodeSelector) }}
       nodeSelector:
       {{- toYaml .Values.common.nodeSelector | nindent 8 }}

@@ -216,6 +216,16 @@ auth:
   initContainer:
     # -- auth init container image repository
     imageName: "ghcr.io/liqotech/cert-creator"
+    mounts: {}
+    #  volumes:
+    #    - name: data
+    #      emptyDir: {}
+    #  volumeMounts:
+    #    - mountPath: /data
+    #      name
+    #
+    # -- additional arguments for certificate creation
+    extraArgs: []
   service:
     # -- The type of service used to expose the Authentication Service.
     # If you are exposing this service with an Ingress, you can change it to ClusterIP;
